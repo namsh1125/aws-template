@@ -30,3 +30,15 @@ variable "user" {
   }))
   default = []
 }
+
+variable "user_password_length" {
+  description = "사용자 비밀번호 길이"
+  type        = number
+  default     = 16
+}
+
+variable "user_password_reset_required" {
+  description = "사용자 비밀번호 초기화 필요 여부"
+  type        = bool
+  default     = true
+}

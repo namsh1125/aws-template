@@ -9,4 +9,7 @@ group_policy = [
 ]
 user = [
   { "name" : "polar", "tags" : { "name" : "남승현", "role" : "backend developer" } },
+  { "name" : "hani", "tags" : { "name" : "윤서진", "role" : "frontend developer" } },
 ]
+user_password_length = 16
+user_password_reset_required = true
