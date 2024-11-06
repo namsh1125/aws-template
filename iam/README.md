@@ -7,6 +7,7 @@
 ## 구성 요소
 
 - `main.tf`: IAM 리소스를 생성하는 테라폼 코드가 작성되어 있습니다.
+- `outputs.tf`: 테라폼 실행 후 출력할 값을 정의하는 파일입니다.
 - `variables.tf`: 테라폼 변수를 정의하는 파일입니다.
 - `terraform.tfvars`: 테라폼 변수의 값을 설정하는 파일입니다.
 
@@ -22,7 +23,7 @@
     ```bash
     terraform init
     ```
-2. `terraform.tfvars` 파일을 수정하여 자신의 환경에 맞게 설정합니다.
+2. [terraform.tfvars](./terraform.tfvars) 파일을 수정하여 자신의 환경에 맞게 설정합니다.
 3. `terraform plan` 명령어를 실행하여 실행 계획을 확인합니다.
 
     ```bash
