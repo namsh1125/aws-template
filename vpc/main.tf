@@ -6,7 +6,10 @@ resource "aws_vpc" "main" {
   }
 }
 
+################################################################################
 # Prod Subnet
+################################################################################
+
 # Prod public subnet 생성 (ap-northeast-2a)
 resource "aws_subnet" "prod_public_subnet1" {
   vpc_id            = aws_vpc.main.id
@@ -47,7 +50,10 @@ resource "aws_subnet" "prod_private_subnet2" {
   }
 }
 
+################################################################################
 # Stage Subnet
+################################################################################
+
 # Stage public subnet 생성 (ap-northeast-2c)
 resource "aws_subnet" "stage_public_subnet1" {
   vpc_id            = aws_vpc.main.id
@@ -57,6 +63,10 @@ resource "aws_subnet" "stage_public_subnet1" {
     Name = "${var.project}-stage-subnet"
   }
 }
+
+################################################################################
+# Gateway
+################################################################################
 
 # Internet Gateway 생성
 resource "aws_internet_gateway" "main" {
@@ -83,7 +93,10 @@ resource "aws_nat_gateway" "main" {
   }
 }
 
+################################################################################
 # Route Table
+################################################################################
+
 # Public Subnet Route Table 생성
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
@@ -114,6 +127,10 @@ resource "aws_route_table" "private" {
   }
 }
 
+################################################################################
+# VPC Endpoint
+################################################################################
+
 # S3 Endpoint 생성
 resource "aws_vpc_endpoint" "s3" {
   vpc_id       = aws_vpc.main.id
@@ -129,7 +146,10 @@ resource "aws_vpc_endpoint_route_table_association" "s3" {
   route_table_id  = aws_route_table.private.id
 }
 
-# Route Table 연결
+################################################################################
+# Subnet Route Table Association
+################################################################################
+
 # Public Subnet Route Table 연결
 resource "aws_route_table_association" "public1" {
   subnet_id      = aws_subnet.prod_public_subnet1.id
