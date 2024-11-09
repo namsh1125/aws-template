@@ -49,7 +49,7 @@ resource "aws_subnet" "prod_private_subnet2" {
 
 # Stage Subnet
 # Stage public subnet 생성 (ap-northeast-2c)
-resource "aws_subnet" "stage_subnet_public1" {
+resource "aws_subnet" "stage_public_subnet1" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.stage_public_subnet_cidr_block
   availability_zone = "ap-northeast-2c"
@@ -142,7 +142,7 @@ resource "aws_route_table_association" "public2" {
 }
 
 resource "aws_route_table_association" "stage" {
-  subnet_id      = aws_subnet.stage_subnet_public1.id
+  subnet_id      = aws_subnet.stage_public_subnet1.id
   route_table_id = aws_route_table.public.id
 }
 
