@@ -77,12 +77,12 @@ module "web_application_server_instance_sg" {
     ],
     [
       for port in var.backend_ports : {
-      from_port                = port
-      to_port                  = port
-      protocol                 = "tcp"
-      description              = "${port} Connection from Web Server Instances"
-      source_security_group_id = module.web_server_instance_sg.security_group_id
-    }
+        from_port                = port
+        to_port                  = port
+        protocol                 = "tcp"
+        description              = "${port} Connection from Web Server Instances"
+        source_security_group_id = module.web_server_instance_sg.security_group_id
+      }
     ]
   )
 
