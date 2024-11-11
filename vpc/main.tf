@@ -1,8 +1,12 @@
+module "common" {
+  source = "../common"
+}
+
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   # VPC 이름
-  name = "${var.project}-vpc"
+  name = "${module.common.project}-vpc"
 
   # VPC CIDR 블럭
   cidr = var.vpc_cidr_block
@@ -12,15 +16,15 @@ module "vpc" {
 
   # Public Subnet
   public_subnets = [var.prod_public_subnet1_cidr_block, var.prod_public_subnet2_cidr_block, var.stage_public_subnet_cidr_block]
-  public_subnet_names = ["${var.project}-prod-public-subnet1", "${var.project}-prod-public-subnet2", "${var.project}-stage-public-subnet"]
+  public_subnet_names = ["${module.common.project}-prod-public-subnet1", "${module.common.project}-prod-public-subnet2", "${module.common.project}-stage-public-subnet"]
 
   # Private Subnet
   private_subnets = [var.prod_private_subnet1_cidr_block, var.prod_private_subnet2_cidr_block]
-  private_subnet_names = ["${var.project}-prod-private-subnet1", "${var.project}-prod-private-subnet2"]
+  private_subnet_names = ["${module.common.project}-prod-private-subnet1", "${module.common.project}-prod-private-subnet2"]
 
   # Internet Gateway
   igw_tags = {
-    Name = "${var.project}-igw"
+    Name = "${module.common.project}-igw"
   }
 
   # NAT Gateway - 한 개의 NAT Gateway를 사용
@@ -28,7 +32,7 @@ module "vpc" {
   single_nat_gateway     = true
   one_nat_gateway_per_az = false
   nat_gateway_tags = {
-    Name = "${var.project}-nat-gateway"
+    Name = "${module.common.project}-nat-gateway"
   }
 
   # VPN Gateway
@@ -46,6 +50,6 @@ resource "aws_vpc_endpoint" "s3" {
   route_table_ids = module.vpc.private_route_table_ids
   service_name = "com.amazonaws.ap-northeast-2.s3"
   tags = {
-    Name = "${var.project}-s3-endpoint"
+    Name = "${module.common.project}-s3-endpoint"
   }
 }

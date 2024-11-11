@@ -1,5 +1,3 @@
-region     = "ap-northeast-2"
-project    = "terraform"
 group_name = "terraform-testing-developers"
 group_policy = [
   "arn:aws:iam::aws:policy/AmazonEC2FullAccess",

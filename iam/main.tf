@@ -1,5 +1,5 @@
-provider "aws" {
-  region = var.region
+module "common" {
+  source = "../common"
 }
 
 # IAM 그룹 생성
@@ -18,7 +18,7 @@ resource "aws_iam_group_policy_attachment" "developers_group_policy" {
 resource "aws_iam_user" "developers" {
   count = length(var.user)
   name = var.user[count.index].name
-  path = "/${var.project}/"
+  path = "/${module.common.project}/"
   tags = {
     name = var.user[count.index].tags.name
     role = var.user[count.index].tags.role
@@ -28,8 +28,8 @@ resource "aws_iam_user" "developers" {
 # IAM 사용자 콘솔 엑세스 설정
 resource "aws_iam_user_login_profile" "developers_login_profile" {
   count = length(var.user)
-  user = aws_iam_user.developers[count.index].name
-  password_length = var.user_password_length
+  user                    = aws_iam_user.developers[count.index].name
+  password_length         = var.user_password_length
   password_reset_required = var.user_password_reset_required
 }
 

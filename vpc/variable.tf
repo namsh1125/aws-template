@@ -1,9 +1,3 @@
-variable "project" {
-  description = "프로젝트 이름"
-  type        = string
-  default     = "terraform"
-}
-
 variable "vpc_cidr_block" {
   description = "VPC CIDR 블럭"
   type        = string

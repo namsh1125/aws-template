@@ -1,4 +1,3 @@
-project    = "terraform"
 vpc_cidr_block = "10.0.0.0/16"
 prod_public_subnet1_cidr_block = "10.0.0.0/20"
 prod_public_subnet2_cidr_block = "10.0.16.0/20"
