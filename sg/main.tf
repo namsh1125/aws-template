@@ -1,5 +1,8 @@
-module "vpc" {
-  source = "../vpc"
+data "terraform_remote_state" "vpc" {
+  backend = "local" # 로컬 상태 파일 사용
+  config = {
+    path = "../vpc/terraform.tfstate"
+  }
 }
 
 module "bastion_instance_sg" {
@@ -7,7 +10,7 @@ module "bastion_instance_sg" {
 
   name        = "bastion-instance-sg"
   description = "Security group for bastion instance with SSH open within VPC"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
 
   ingress_with_cidr_blocks = [
     {
@@ -25,7 +28,7 @@ module "web_server_instance_sg" {
 
   name        = "web-server-instance-sg"
   description = "Security group for web server instance with HTTP, HTTPS open within VPC and SSH open only from bastion"
-  vpc_id = module.vpc.vpc_id
+  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
 
   # CIDR 블록을 사용한 HTTP, HTTPS 포트 열기
   ingress_with_cidr_blocks = [
@@ -62,7 +65,7 @@ module "web_application_server_instance_sg" {
 
   name        = "web-application-server-instance-sg"
   description = "Security group for the web application server, allowing backend applications ports access from web server instances and SSH from bastion."
-  vpc_id = module.vpc.vpc_id
+  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
 
   # 보안 그룹을 사용한 SSH, 백엔드 포트 열기
   ingress_with_source_security_group_id = concat(
@@ -94,7 +97,7 @@ module "mysql_database_instance_sg" {
 
   name        = "mysql-database-instance-sg"
   description = "Security group for MySQL database instance, allowing MySQL port access from web application server instances."
-  vpc_id = module.vpc.vpc_id
+  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
 
   # 보안 그룹을 사용한 데이터베이스 포트 열기
   ingress_with_source_security_group_id = [
@@ -113,7 +116,7 @@ module "postgresql_database_instance_sg" {
 
   name        = "postgresql-database-instance-sg"
   description = "Security group for PostgreSQL database instance, allowing PostgreSQL port access from web application server instances."
-  vpc_id = module.vpc.vpc_id
+  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
 
   # 보안 그룹을 사용한 데이터베이스 포트 열기
   ingress_with_source_security_group_id = [

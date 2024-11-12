@@ -13,9 +13,24 @@ output "public_subnet_cidr_blocks" {
   value       = module.vpc.public_subnets_cidr_blocks
 }
 
+output "prod_public_subnet_id" {
+  description = "(Prod) Public Subnet ID"
+  value       = module.vpc.public_subnets[0]
+}
+
+output "stage_public_subnet_id" {
+  description = "(Stage) Public Subnet ID"
+  value       = module.vpc.public_subnets[1]
+}
+
 output "private_subnet_ids" {
   description = "Private Subnet IDs"
   value       = module.vpc.private_subnets
+}
+
+output "prod_private_subnet_id" {
+  description = "(Prod) Private Subnet ID"
+  value       = module.vpc.private_subnets[0]
 }
 
 output "igw_id" {
