@@ -1,2 +1,6 @@
-bastion_ami = "ami-040c33c6a51fd5d96"
-bastion_instance_type = "t2.micro"
+bastion_ami                          = "ami-040c33c6a51fd5d96"
+bastion_instance_type                = "t2.micro"
+web_server_ami                       = "ami-040c33c6a51fd5d96"
+web_server_instance_type             = "t2.micro"
+web_application_server_ami           = "ami-040c33c6a51fd5d96"
+web_application_server_instance_type = "t2.micro"

@@ -21,6 +21,17 @@ module "bastion_instance_sg" {
       cidr_blocks = "0.0.0.0/0"
     }
   ]
+
+  # 모든 트래픽을 허용하기 위한 egress 규칙
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      description = "All traffic"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
 }
 
 module "web_server_instance_sg" {
@@ -58,6 +69,17 @@ module "web_server_instance_sg" {
       source_security_group_id = module.bastion_instance_sg.security_group_id
     }
   ]
+
+  # 모든 트래픽을 허용하기 위한 egress 규칙
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      description = "All traffic"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
 }
 
 module "web_application_server_instance_sg" {
@@ -89,7 +111,16 @@ module "web_application_server_instance_sg" {
     ]
   )
 
-  # Todo: 데이터베이스의 서브넷에 접근 가능하도록 설정
+  # 모든 트래픽을 허용하기 위한 egress 규칙
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      description = "All traffic"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
 }
 
 module "mysql_database_instance_sg" {
@@ -109,6 +140,17 @@ module "mysql_database_instance_sg" {
       source_security_group_id = module.web_application_server_instance_sg.security_group_id
     }
   ]
+
+  # Web Application Server 인스턴스로 모든 트래픽을 허용하기 위한 egress 규칙
+  egress_with_source_security_group_id = [
+    {
+      from_port                = 0
+      to_port                  = 0
+      protocol                 = "-1"
+      description              = "All traffic"
+      source_security_group_id = module.web_application_server_instance_sg.security_group_id
+    }
+  ]
 }
 
 module "postgresql_database_instance_sg" {
@@ -125,6 +167,17 @@ module "postgresql_database_instance_sg" {
       to_port                  = 5432
       protocol                 = "tcp"
       description              = "PostgreSQL Connection from Web Application Server Instances"
+      source_security_group_id = module.web_application_server_instance_sg.security_group_id
+    }
+  ]
+
+  # Web Application Server 인스턴스로 모든 트래픽을 허용하기 위한 egress 규칙
+  egress_with_source_security_group_id = [
+    {
+      from_port                = 0
+      to_port                  = 0
+      protocol                 = "-1"
+      description              = "All traffic"
       source_security_group_id = module.web_application_server_instance_sg.security_group_id
     }
   ]
