@@ -1,12 +1,12 @@
-# Instance
+# Computing
 
-현재 디렉토리는 Instance에 대한 내용을 담고 있습니다.
+현재 디렉토리는 Computing에 대한 내용을 담고 있습니다.
 
 해당 디렉토리에 있는 테라폼 코드를 실행하면, `Bastion instance`, `WS instance`, `WAS instance`가 생성됩니다.
 
 ## 구성 요소
 
-- `main.tf`: Instance 리소스를 생성하는 테라폼 코드가 작성되어 있습니다.
+- `main.tf`: Computing 리소스를 생성하는 테라폼 코드가 작성되어 있습니다.
 - `outputs.tf`: 테라폼 실행 후 생성된 리소스의 정보를 출력하는 파일입니다.
 - `terraform.tfvars`: 테라폼 변수의 값을 설정하는 파일입니다.
 - `variables.tf`: 테라폼 변수를 정의하는 파일입니다.

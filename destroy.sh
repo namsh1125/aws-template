@@ -1,5 +1,5 @@
-# Instance를 삭제한다.
-cd ./instance
+# Computing Instance를 삭제한다.
+cd ./computing
 terraform destroy -auto-approve
 
 # KeyPair를 삭제한다.

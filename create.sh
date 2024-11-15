@@ -18,7 +18,7 @@ cd ../keypair
 terraform init
 terraform apply -auto-approve
 
-# Instance를 생성한다.
-cd ../instance
+# Computing Instance를 생성한다.
+cd ../computing
 terraform init
 terraform apply -auto-approve
