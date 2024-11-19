@@ -15,6 +15,9 @@
 
 - AWS CLI 설치 및 계정 설정 (`aws configure`)
 - 테라폼 설치
+- [VPC](../vpc) 모듈을 통해 VPC 생성
+- [SG](../sg) 모듈을 통해 SG 생성
+- [KeyPair](../keypair) 모듈을 통해 KeyPair 생성
 
 ## 시작하기
 
