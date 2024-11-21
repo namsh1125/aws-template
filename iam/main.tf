@@ -1,5 +1,8 @@
-module "common" {
-  source = "../common"
+data "terraform_remote_state" "common" {
+  backend = "local" # 로컬 상태 파일 사용
+  config = {
+    path = "../common/terraform.tfstate"
+  }
 }
 
 # IAM 그룹 생성
@@ -18,7 +21,7 @@ resource "aws_iam_group_policy_attachment" "developers_group_policy" {
 resource "aws_iam_user" "developers" {
   count = length(var.user)
   name = var.user[count.index].name
-  path = "/${module.common.project}/"
+  path = "/${data.terraform_remote_state.common.outputs.project}/"
   tags = {
     name = var.user[count.index].tags.name
     role = var.user[count.index].tags.role

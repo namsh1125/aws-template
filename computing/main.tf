@@ -1,5 +1,8 @@
-module "common" {
-  source = "../common"
+data "terraform_remote_state" "common" {
+  backend = "local" # 로컬 상태 파일 사용
+  config = {
+    path = "../common/terraform.tfstate"
+  }
 }
 
 data "terraform_remote_state" "vpc" {
@@ -32,7 +35,7 @@ resource "aws_instance" "bastion_host" {
   vpc_security_group_ids = [data.terraform_remote_state.sg.outputs.bastion_instance_sg_id]
   associate_public_ip_address = true
   tags = {
-    Name = "${module.common.project}-bastion-host"
+    Name = "${data.terraform_remote_state.common.outputs.project}-bastion-host"
   }
 }
 
@@ -45,7 +48,7 @@ resource "aws_instance" "web_server" {
   vpc_security_group_ids = [data.terraform_remote_state.sg.outputs.web_server_instance_sg_id]
   associate_public_ip_address = true
   tags = {
-    Name = "${module.common.project}-web-server"
+    Name = "${data.terraform_remote_state.common.outputs.project}-web-server"
   }
 }
 
@@ -57,6 +60,6 @@ resource "aws_instance" "web_application_server" {
   subnet_id     = data.terraform_remote_state.vpc.outputs.prod_private_subnet_id
   vpc_security_group_ids = [data.terraform_remote_state.sg.outputs.web_application_server_instance_sg_id]
   tags = {
-    Name = "${module.common.project}-web-application-server"
+    Name = "${data.terraform_remote_state.common.outputs.project}-web-application-server"
   }
 }

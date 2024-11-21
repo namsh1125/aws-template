@@ -17,3 +17,7 @@ terraform destroy -auto-approve
 # IAM 계정을 삭제한다.
 cd ../iam
 terraform destroy -auto-approve
+
+# Common output을 삭제한다.
+cd ../common
+terraform destroy -auto-approve
