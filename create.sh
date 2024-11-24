@@ -1,6 +1,7 @@
 # 프로젝트 생성에 필요한 Common output을 생성한다.
 cd ./common
 terraform init
+terraform apply -auto-approve
 
 # IAM 계정을 생성한다.
 cd ../iam
